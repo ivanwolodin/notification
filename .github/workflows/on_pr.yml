@@ -1,0 +1,28 @@
+name: CI
+
+on: [pull_request]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install requests
+          pip install pytest
+          pip install -r like_api/requirements.txt
+      - name: Run tests
+        run: |
+          pytest
+      - name: Send telegram msg
+        if: success()
+        run: python telegram_notifications/send_notification.py
