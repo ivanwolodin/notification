@@ -19,7 +19,7 @@ jobs:
         run: |
           pip install requests
           pip install pytest
-          pip install -r like_api/requirements.txt
+          pip install -r django_admin/requirements.txt
       - name: Run tests
         run: |
           pytest

@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r like_api/requirements_files_for_GH_actions/requirements-${{ matrix.python-version }}.txt
+        pip install -r django_admin/requirements_files_for_GH_actions/requirements-${{ matrix.python-version }}.txt
         pip install wemake-python-styleguide
         pip install mypy
     - name: Analysing the code with wemake-python-styleguide

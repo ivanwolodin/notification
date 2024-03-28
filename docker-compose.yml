@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: email_service_db
+      POSTGRES_USER: your_postgres_user
+      POSTGRES_PASSWORD: your_postgres_password
+
+  django_admin:
+    build:
+      context: ./django_admin
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://your_postgres_user:your_postgres_password@postgres/email_service_db
+
+  rabbitmq:
+    image: rabbitmq:latest
+    restart: always
+    ports:
+      - "5672:5672"
+
+  scheduler:
+    build:
+      context: ./scheduler
+    restart: always
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      DATABASE_URL: postgres://your_postgres_user:your_postgres_password@postgres/email_service_db
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq
+
+  smtp:
+    build:
+      context: ./smtp
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq
