@@ -12,7 +12,7 @@ class ContentService:
         self.producer: BaseProducer = producer
 
     async def produce(self, data: BaseContent) -> None:
-        await self.producer.produce({data.user_id: data.event_type})
+        await self.producer.produce({'user_id': data.user_id, 'event_type': data.event_type})
 
 
 @lru_cache()
