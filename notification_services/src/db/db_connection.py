@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 
 import psycopg2
-# from constants import dsl
 from psycopg2.extras import DictCursor
 
 from core.config import config
@@ -9,7 +8,6 @@ from core.config import config
 
 @contextmanager
 def open_postgres_connection():
-    dsn = f'postgresql+asyncpg://admin:password@localhost:5432/notify'
     dsl = {
         'dbname': config.PG_DB,
         'user': config.PG_USER,

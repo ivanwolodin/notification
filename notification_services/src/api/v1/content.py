@@ -5,7 +5,6 @@ from http.client import HTTPException
 from fastapi import APIRouter, Depends
 
 from models.content_model import BaseContent
-
 from services.content_loader import ContentService, get_content_loader_service
 
 router = APIRouter()

@@ -2,7 +2,6 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
-
 class Config(BaseSettings):
     PROJECT_NAME: str = Field("User events", env="PROJECT_NAME")
     BACKOFF_MAX_TRIES: int = Field(100, env="BACKOFF_MAX_TRIES")

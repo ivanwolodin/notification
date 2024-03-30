@@ -1,16 +1,12 @@
 from contextlib import asynccontextmanager
 
 import uvicorn
-
-import broker
-
-from api.v1 import content
-
-from broker.producer import RabbitMQ
-
-from core.config import config
 from fastapi import FastAPI
 
+import broker
+from api.v1 import content
+from broker.producer import RabbitMQ
+from core.config import config
 from services.scheduler import Scheduler
 
 dependencies = []

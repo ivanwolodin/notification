@@ -1,11 +1,9 @@
-import logging
 import json
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from typing import Optional
 
 import aio_pika
-# import backoff as backoff
-from aio_pika import connect, Message
+from aio_pika import connect
 
 from core.config import config
 
