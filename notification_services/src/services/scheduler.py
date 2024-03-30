@@ -1,7 +1,7 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from notification_services.src.core.config import config
-from notification_services.src.services.content_reader import NotifyBroker
+from core.config import config
+from services.content_reader import NotifyBroker
 
 
 class Scheduler:

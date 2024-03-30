@@ -11,7 +11,7 @@ from broker.producer import RabbitMQ
 from core.config import config
 from fastapi import FastAPI
 
-from notification_services.src.services.scheduler import Scheduler
+from services.scheduler import Scheduler
 
 dependencies = []
 

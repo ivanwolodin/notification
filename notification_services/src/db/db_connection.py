@@ -4,7 +4,7 @@ import psycopg2
 # from constants import dsl
 from psycopg2.extras import DictCursor
 
-from notification_services.src.core.config import config
+from core.config import config
 
 
 @contextmanager

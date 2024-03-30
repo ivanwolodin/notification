@@ -2,9 +2,7 @@ import traceback
 from http import HTTPStatus
 from http.client import HTTPException
 
-# from aiokafka.errors import KafkaError
 from fastapi import APIRouter, Depends
-
 
 from models.content_model import BaseContent
 

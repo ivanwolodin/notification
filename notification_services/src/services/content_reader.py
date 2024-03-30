@@ -1,7 +1,7 @@
-from notification_services.src.broker.producer import RabbitMQ
-from notification_services.src.core.config import config
-from notification_services.src.core.sql import SQL_QUERIES
-from notification_services.src.db.db_connection import open_postgres_connection
+from broker.producer import RabbitMQ
+from core.config import config
+from core.sql import SQL_QUERIES
+from db.db_connection import open_postgres_connection
 
 
 class NotifyBroker:
