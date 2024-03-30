@@ -40,20 +40,20 @@ class RabbitMQ(BaseProducer):
         except Exception as e:
             raise e
 
-    async def create_queue(self, ):
+    async def create_queue(self):
         async with self.connection.channel() as channel:
             self.queue = await channel.declare_queue(
                 config.RABBIT_Q_NAME,
                 durable=True,
             )
 
-    async def produce(self, message):
+    async def produce(self, message) -> bool:
         # connection = await aio_pika.connect_robust("amqp://guest:guest@localhost/")
         if not self.queue:
             await self.create_queue()
 
-        async with self.connection:
-            channel = await self.connection.channel()
+        async with self.connection.channel() as channel:
+            # channel = await self.connection.channel()
 
             exchange = await channel.declare_exchange('users', aio_pika.ExchangeType.DIRECT)
             queue = await channel.declare_queue(self.queue.name, durable=True)
@@ -66,6 +66,7 @@ class RabbitMQ(BaseProducer):
             )
 
             await exchange.publish(pika_message, routing_key=self.queue.name)
+            return True
 
 
 rabbit_producer: Optional[RabbitMQ] = None

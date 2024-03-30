@@ -11,16 +11,21 @@ from broker.producer import RabbitMQ
 from core.config import config
 from fastapi import FastAPI
 
+from notification_services.src.services.scheduler import Scheduler
+
 dependencies = []
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    scheduler = Scheduler()
+    scheduler.start_scheduler()
     rabbit = RabbitMQ("amqp://guest:guest@localhost/")
     await rabbit.connect_broker()
     broker.producer.rabbit_producer = rabbit
     yield
     await rabbit.close()
+    scheduler.stop_scheduler()
 
 
 app = FastAPI(
