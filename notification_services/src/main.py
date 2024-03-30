@@ -20,7 +20,7 @@ dependencies = []
 async def lifespan(app: FastAPI):
     scheduler = Scheduler()
     scheduler.start_scheduler()
-    rabbit = RabbitMQ("amqp://guest:guest@localhost/")
+    rabbit = RabbitMQ(config.RABBIT_DSN)
     await rabbit.connect_broker()
     broker.producer.rabbit_producer = rabbit
     yield

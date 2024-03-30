@@ -7,14 +7,14 @@ class Config(BaseSettings):
     PROJECT_NAME: str = Field("User events", env="PROJECT_NAME")
     BACKOFF_MAX_TRIES: int = Field(100, env="BACKOFF_MAX_TRIES")
     RABBIT_Q_NAME: str = Field("NOTIFY_1", env="RABBIT_TOPIC_NAME")
-    RABBIT_DSN: str = Field("kafka:29099", env="RABBIT_DSN")
-    # CLICK_HOST: str = Field("clickhouse-node1", env="CLICK_HOST")
-    # CLICK_PORT: str = Field("9000", env="CLICK_PORT")
-    # ETL_SLEEP_SECOND: int = Field(5, env="ETL_SLEEP_SECOND")
-    # ETL_BATCH_MESSAGE_COUNT: int = Field(1, env="ETL_BATCH_MESSAGE_COUNT")
-    # TABLE_NAME: str = Field("table_ugc", env="TABLE_NAME")
-    # DB_NAME: str = Field("ugc", env="DB_NAME")
+    RABBIT_DSN: str = Field("amqp://guest:guest@localhost/", env="RABBIT_DSN")
+    RABBIT_EXCHANGE: str = Field("users", env="users")
+    SCHEDULER_INTERVAL: int = Field(1, env="SCHEDULER_INTERVAL")
+    PG_DB: str = Field("notify", env="PG_DB")
+    PG_HOST: str = Field("localhost", env="PG_HOST")
+    PG_PORT: str = Field("5432", env="PG_PORT")
+    PG_USER: str = Field("admin", env="PG_USER")
+    PG_PASSWORD: str = Field("password", env="PG_PASSWORD")
 
 
 config = Config()
-

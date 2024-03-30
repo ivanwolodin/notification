@@ -1,5 +1,6 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
+from notification_services.src.core.config import config
 from notification_services.src.services.content_reader import NotifyBroker
 
 
@@ -14,7 +15,7 @@ class Scheduler:
         await n.notify_broker()
 
     def _add_jobs(self):
-        self.scheduler.add_job(self.run_every_x_days_job, 'interval', minutes=1)
+        self.scheduler.add_job(self.run_every_x_days_job, 'interval', minutes=config.SCHEDULER_INTERVAL)
 
     def start_scheduler(self):
         self._add_jobs()

@@ -55,7 +55,7 @@ class RabbitMQ(BaseProducer):
         async with self.connection.channel() as channel:
             # channel = await self.connection.channel()
 
-            exchange = await channel.declare_exchange('users', aio_pika.ExchangeType.DIRECT)
+            exchange = await channel.declare_exchange(config.RABBIT_EXCHANGE, aio_pika.ExchangeType.DIRECT)
             queue = await channel.declare_queue(self.queue.name, durable=True)
 
             await queue.bind(exchange, self.queue.name)
