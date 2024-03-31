@@ -5,7 +5,6 @@ from services.content_reader import NotifyBroker
 
 
 class Scheduler:
-
     def __init__(self):
         self.scheduler = AsyncIOScheduler()
 
@@ -15,7 +14,11 @@ class Scheduler:
         await n.notify_broker()
 
     def _add_jobs(self):
-        self.scheduler.add_job(self.run_every_x_days_job, 'interval', minutes=config.SCHEDULER_INTERVAL)
+        self.scheduler.add_job(
+            self.run_every_x_days_job,
+            'interval',
+            minutes=config.SCHEDULER_INTERVAL,
+        )
 
     def start_scheduler(self):
         self._add_jobs()

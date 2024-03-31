@@ -4,9 +4,9 @@ import uvicorn
 from fastapi import FastAPI
 
 from api.v1 import content
+from broker import producer
 from broker.producer import RabbitMQ
 from core.config import config
-from broker import producer
 from services.scheduler import Scheduler
 
 dependencies = []
@@ -32,7 +32,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.include_router(content.router, prefix='/api/v1/user_event', tags=['USER_EVENT'])
+app.include_router(
+    content.router, prefix='/api/v1/user_event', tags=['USER_EVENT']
+)
 
 if __name__ == '__main__':
     uvicorn.run(

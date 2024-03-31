@@ -19,8 +19,15 @@ class NotificationType(models.TextChoices):
 
 
 class Template(UUIDTimeStampedMixin, models.Model):
-    name = models.CharField(_('Name'), max_length=250, unique=True, help_text="Template name")
-    description = models.TextField(_('Description'), blank=True, null=True, help_text="Template description")
+    name = models.CharField(
+        _('Name'), max_length=250, unique=True, help_text='Template name'
+    )
+    description = models.TextField(
+        _('Description'),
+        blank=True,
+        null=True,
+        help_text='Template description',
+    )
     subject = models.CharField(_('Subject'), max_length=250)
     body = models.TextField(_('Body'))
 
@@ -36,9 +43,15 @@ class Template(UUIDTimeStampedMixin, models.Model):
 class Notification(UUIDTimeStampedMixin, models.Model):
     name = models.CharField(_('Name'), max_length=254)
     description = models.TextField(_('Description'), blank=True, null=True)
-    user_id = models.CharField(max_length=255, blank=True, null=True, help_text=_('User ID'))
-    email = models.CharField(max_length=255, blank=True, null=True, help_text=_('Email'))
-    template = models.ForeignKey(Template, on_delete=models.PROTECT, verbose_name=_('Template'))
+    user_id = models.CharField(
+        max_length=255, blank=True, null=True, help_text=_('User ID')
+    )
+    email = models.CharField(
+        max_length=255, blank=True, null=True, help_text=_('Email')
+    )
+    template = models.ForeignKey(
+        Template, on_delete=models.PROTECT, verbose_name=_('Template')
+    )
     event_type = models.CharField(
         _('Event type'),
         max_length=50,

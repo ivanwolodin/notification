@@ -1,6 +1,5 @@
 import os
 
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': os.environ.get('DJANGO_ADMIN_NOTICE_DB_ENGINE'),

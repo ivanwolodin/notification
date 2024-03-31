@@ -7,7 +7,9 @@ from email_sender_async import send_email
 
 
 async def consume(queue_name):
-    connection = await aio_pika.connect_robust("amqp://guest:guest@rabbit_queue/")
+    connection = await aio_pika.connect_robust(
+        'amqp://guest:guest@rabbit_queue/'
+    )
     channel = await connection.channel()
     queue = await channel.declare_queue(
         queue_name,

@@ -3,13 +3,15 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_ADMIN_NOTICE_SECRET_KEY', "secret")
+SECRET_KEY = os.environ.get('DJANGO_ADMIN_NOTICE_SECRET_KEY', 'secret')
 
 LOCALE_PATHS = ['notifications/locale']
 
 DEBUG = os.environ.get('DJANGO_ADMIN_NOTICE_DEBUG', False) == 'True'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ADMIN_NOTICE_ALLOWED_HOSTS', "* localhost").split()
+ALLOWED_HOSTS = os.environ.get(
+    'DJANGO_ADMIN_NOTICE_ALLOWED_HOSTS', '* localhost'
+).split()
 
 INSTALLED_APPS = [
     'debug_toolbar',
@@ -89,7 +91,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
 
 LOGGING = {
@@ -101,7 +103,7 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(asctime)s %(levelname)s:'
-                      ' %(message)s [in %(pathname)s:%(lineno)d]'
+            ' %(message)s [in %(pathname)s:%(lineno)d]'
         }
     },
     'handlers': {

@@ -22,7 +22,6 @@ class BaseProducer(ABC):
 
 
 class RabbitMQ(BaseProducer):
-
     def __init__(self, dsn):
         self.dsn = dsn
         self.connection = None
@@ -53,14 +52,16 @@ class RabbitMQ(BaseProducer):
         async with self.connection.channel() as channel:
             # channel = await self.connection.channel()
 
-            exchange = await channel.declare_exchange(config.RABBIT_EXCHANGE, aio_pika.ExchangeType.DIRECT)
+            exchange = await channel.declare_exchange(
+                config.RABBIT_EXCHANGE, aio_pika.ExchangeType.DIRECT
+            )
             queue = await channel.declare_queue(self.queue.name, durable=True)
 
             await queue.bind(exchange, self.queue.name)
 
             pika_message = aio_pika.Message(
                 body=json.dumps(message).encode(),
-                delivery_mode=aio_pika.DeliveryMode.PERSISTENT
+                delivery_mode=aio_pika.DeliveryMode.PERSISTENT,
             )
 
             await exchange.publish(pika_message, routing_key=self.queue.name)
