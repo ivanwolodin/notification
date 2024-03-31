@@ -13,4 +13,4 @@ class TemplateAdmin(admin.ModelAdmin):
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
 
-    list_display = ("user_id", "template", "content")
+    list_display = ("template", "content", "name")

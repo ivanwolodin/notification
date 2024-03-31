@@ -39,6 +39,11 @@ class Notification(models.Model):
     )
     plan_date = models.DateTimeField()
     processed = models.DateTimeField(blank=True, null=True)
+    user_id = models.CharField("user_id", max_length=255,
+                               blank=True, null=True)
+    event_type = models.CharField("event_type", max_length=255,
+                                  blank=True, null=True)
+    every_day = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name = "Notification"
