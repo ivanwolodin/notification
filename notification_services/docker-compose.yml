@@ -26,25 +26,33 @@ services:
     build:
       context: ./admin_notice
       dockerfile: ./Dockerfile
-    command: /bin/bash -c "gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
     volumes:
       - ./admin_notice/static_volume:/code/static/
 #    restart: always
     env_file:
-      - ./admin_notice/.env.example
+      - .env
     ports:
       - "${DJANGO_ADMIN_NOTICE_PORT}:8000"
     depends_on:
-      - db
+      postgres:
+        condition: service_healthy
 
-  db:
-    image: postgres:13
-    container_name: db
+  postgres:
+    image: postgres
+    container_name: notify_db
+    env_file:
+      - .env
+    volumes:
+      - ./etc/schema_design/:/docker-entrypoint-initdb.d/
+      - ./database:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "5432:5432"
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=notify
