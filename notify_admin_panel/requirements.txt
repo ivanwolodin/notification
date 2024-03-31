@@ -1,0 +1,5 @@
+python-dotenv==1.0.0
+django==4.0.4
+psycopg2-binary==2.9.3
+uwsgi==2.0.21
+django-ckeditor==6.7.1
