@@ -23,7 +23,13 @@ class NotifyBroker:
         await rabbit.connect_broker()
         with open_postgres_connection() as pg_cursor:
             for note in self.notify_list:
-                produce_access = await rabbit.produce({note[0]: note[1]})
+                produce_access = await rabbit.produce({
+                    # note[0]: note[1]
+                    'user_id': [note[0]],
+                    'event_type': note[1],
+                    'subject': note[2],
+                    'text': note[3],
+                })
                 if produce_access:
                     pg_cursor.execute(
                         self.sql_queries.get("PROCESSED_ROWS"),

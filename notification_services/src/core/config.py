@@ -10,7 +10,7 @@ class Config(BaseSettings):
     RABBIT_EXCHANGE: str = Field("users", env="users")
     SCHEDULER_INTERVAL: int = Field(1, env="SCHEDULER_INTERVAL")
     PG_DB: str = Field("notify", env="PG_DB")
-    PG_HOST: str = Field("db", env="PG_HOST")
+    PG_HOST: str = Field("postgres", env="PG_HOST")
     PG_PORT: str = Field("5432", env="PG_PORT")
     PG_USER: str = Field("admin", env="PG_USER")
     PG_PASSWORD: str = Field("password", env="PG_PASSWORD")
