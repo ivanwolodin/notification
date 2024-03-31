@@ -6,7 +6,7 @@ class Config(BaseSettings):
     PROJECT_NAME: str = Field("User events", env="PROJECT_NAME")
     BACKOFF_MAX_TRIES: int = Field(100, env="BACKOFF_MAX_TRIES")
     RABBIT_Q_NAME: str = Field("email_queue", env="RABBIT_TOPIC_NAME")
-    RABBIT_DSN: str = Field("amqp://guest:guest@rabbitmq/", env="RABBIT_DSN")
+    RABBIT_DSN: str = Field("amqp://guest:guest@rabbit_queue/", env="RABBIT_DSN")
     RABBIT_EXCHANGE: str = Field("users", env="users")
     SCHEDULER_INTERVAL: int = Field(1, env="SCHEDULER_INTERVAL")
     PG_DB: str = Field("notify", env="PG_DB")
