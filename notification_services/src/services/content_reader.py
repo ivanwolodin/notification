@@ -25,7 +25,7 @@ class NotifyBroker:
             for note in self.notify_list:
                 produce_access = await rabbit.produce({
                     # note[0]: note[1]
-                    'user_id': [note[0]],
+                    'email_list': [note[0]],
                     'event_type': note[1],
                     'subject': note[2],
                     'text': note[3],

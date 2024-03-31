@@ -13,7 +13,7 @@ class ContentService:
 
     async def produce(self, data: BaseContent) -> None:
         await self.producer.produce({
-            'user_id': [data.user_id],
+            'email_list': [data.user_id],
             'event_type': data.event_type,
             'subject': data.subject,
             'text': data.body,
