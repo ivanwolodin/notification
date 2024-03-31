@@ -21,6 +21,22 @@ services:
       timeout: 2s
       retries: 15
 
+  admin_notifications:
+    container_name: admin_notifications
+    build:
+      context: ./admin_notice
+      dockerfile: ./Dockerfile
+    command: /bin/bash -c "gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+    volumes:
+      - ./admin_notice/static_volume:/code/static/
+#    restart: always
+    env_file:
+      - ./admin_notice/.env.example
+    ports:
+      - "${DJANGO_ADMIN_NOTICE_PORT}:8000"
+    depends_on:
+      - db
+
   db:
     image: postgres:13
     container_name: db
