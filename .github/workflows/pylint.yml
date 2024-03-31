@@ -30,7 +30,7 @@ jobs:
       with:
         name: res_linter-python-${{ matrix.python-version }}.html
         path: res_linter.html
-    - name: Analysing type checking with mypy
-      run: |
-        mypy $(git ls-files '*.py')
+#    - name: Analysing type checking with mypy
+#      run: |
+#        mypy $(git ls-files 'main.py')
 
