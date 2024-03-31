@@ -14,6 +14,27 @@ class AsyncEmailSender:
         self.user = user
         self.password = password
         self.tls = tls
+        self.smtp = None
+
+    async def __aenter__(self):
+        self.smtp = aiosmtplib.SMTP(
+            hostname=self.host,
+            port=int(self.port),
+            start_tls=False,
+            use_tls=self.tls,
+        )
+        await self.smtp.connect()
+
+        if self.tls:
+            await self.smtp.starttls()
+
+        if self.user:
+            await self.smtp.login(self.user, self.password)
+
+        return self
+
+    async def __aexit__(self, *args):
+        await self.smtp.quit()
 
     async def send_mail(
         self,
@@ -49,27 +70,16 @@ class AsyncEmailSender:
 
         msg.attach(MIMEText(text, text_type, 'utf-8'))
 
-        smtp = aiosmtplib.SMTP(
-            hostname=self.host,
-            port=int(self.port),
-            start_tls=False,
-            use_tls=self.tls,
+        await self.smtp.send_message(msg)
+
+
+async def send_email(sender: str, to: list, subject: str, text: str):
+    async with AsyncEmailSender(
+        host=os.getenv('SMTP_HOST'),
+        port=os.getenv('SMTP_PORT'),
+        user=os.getenv('SMTP_USER'),
+        password=os.getenv('SMTP_PASSWORD'),
+    ) as email_sender:
+        await email_sender.send_mail(
+            sender=sender, to=to, subject=subject, text=text
         )
-        await smtp.connect()
-
-        if self.tls:
-            await smtp.starttls()
-
-        if self.user:
-            await smtp.login(self.user, self.password)
-
-        await smtp.send_message(msg)
-        await smtp.quit()
-
-
-email_sender = AsyncEmailSender(
-    host=os.getenv('SMTP_HOST'),
-    port=os.getenv('SMTP_PORT'),
-    user=os.getenv('SMTP_USER'),
-    password=os.getenv('SMTP_PASSWORD'),
-)
