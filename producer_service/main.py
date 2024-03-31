@@ -3,10 +3,10 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-import broker
 from api.v1 import content
 from broker.producer import RabbitMQ
 from core.config import config
+from broker import producer
 from services.scheduler import Scheduler
 
 dependencies = []
@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
     scheduler.start_scheduler()
     rabbit = RabbitMQ(config.RABBIT_DSN)
     await rabbit.connect_broker()
-    broker.producer.rabbit_producer = rabbit
+    producer.rabbit_producer = rabbit
     yield
     await rabbit.close()
     scheduler.stop_scheduler()

@@ -5,7 +5,7 @@ services:
   notify:
     container_name: notify
     restart: always
-    build: ./
+    build: ./producer_service/
     ports:
       - "8000:8000"
 
@@ -28,7 +28,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./admin_notice/static_volume:/code/static/
-#    restart: always
+    restart: always
     env_file:
       - .env
     ports:
@@ -43,7 +43,6 @@ services:
     env_file:
       - .env
     volumes:
-      - ./etc/schema_design/:/docker-entrypoint-initdb.d/
       - ./database:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: "${DB_NAME}"

@@ -1,6 +1,6 @@
 FROM python:3.11
 
-WORKDIR /notification_services
+WORKDIR /
 
 COPY requirements.txt .
 
@@ -9,4 +9,4 @@ RUN apt-get update && \
 
 COPY .. .
 
-CMD ["python", "./src/main.py"]
+CMD ["python", "./main.py"]
