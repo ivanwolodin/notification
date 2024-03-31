@@ -5,7 +5,7 @@ set -e
 # Change .erlang.cookie permission
 chmod 400 /var/lib/rabbitmq/.erlang.cookie
 
-# Get hostname from enviromant variable
+# Get hostname from environment variable
 HOSTNAME=`env hostname`
 echo "Starting RabbitMQ Server For host: " $HOSTNAME
 
@@ -21,6 +21,9 @@ else
     rabbitmqctl join_cluster rabbit@$JOIN_CLUSTER_HOST
     rabbitmqctl start_app
 fi
+
+# Ensure all queues are durable
+rabbitmqctl set_policy ha-all "^" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
 
 # Keep foreground process active ...
 tail -f /dev/null
