@@ -4,6 +4,7 @@ WORKDIR /app
 COPY requirements.txt /app/
 COPY __init__.py /app/
 COPY email_sender_async.py /app/
+COPY settings.py /app
 
 RUN pip install -r requirements.txt
 
