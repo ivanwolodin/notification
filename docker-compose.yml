@@ -98,3 +98,12 @@ services:
     restart: always
     depends_on:
       - haproxy
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog_service
+    logging:
+      driver: 'none'
+    ports:
+      - 1025:1025
+      - 8025:8025

@@ -1,7 +1,6 @@
 import asyncio
 
 import aio_pika
-
 from email_sender_async import send_email
 from settings import settings
 

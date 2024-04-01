@@ -1,5 +1,4 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
 from core.config import config
 from services.content_reader import NotifyBroker
 
