@@ -42,12 +42,12 @@ class Template(UUIDTimeStampedMixin, models.Model):
 
 class Notification(UUIDTimeStampedMixin, models.Model):
     name = models.CharField(_('Name'), max_length=254)
-    description = models.TextField(_('Description'), blank=True, null=True)
+    description = models.TextField(_('Description'))
     user_id = models.CharField(
-        max_length=255, blank=True, null=True, help_text=_('User ID')
+        max_length=255, help_text=_('User ID')
     )
     email = models.CharField(
-        max_length=255, blank=True, null=True, help_text=_('Email')
+        max_length=255, help_text=_('Email')
     )
     template = models.ForeignKey(
         Template, on_delete=models.PROTECT, verbose_name=_('Template')
