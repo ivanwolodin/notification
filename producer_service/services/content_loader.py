@@ -11,6 +11,7 @@ class ContentService:
         self.producer: BaseProducer = producer
 
     async def produce(self, data: BaseContent) -> None:
+        data.user_id = await self.get_email_from_auth_service(data.user_id)
         await self.producer.produce(
             {
                 'email_list': [data.user_id],
@@ -19,6 +20,11 @@ class ContentService:
                 'text': data.body,
             }
         )
+
+    @staticmethod
+    async def get_email_from_auth_service(user_id: str) -> str:
+        """Get email from auth service by user_id"""
+        return 'example@example.com'
 
 
 @lru_cache()
