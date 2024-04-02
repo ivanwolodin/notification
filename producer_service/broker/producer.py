@@ -4,7 +4,6 @@ from typing import Optional
 
 import aio_pika
 from aio_pika import connect
-
 from core.config import config
 
 

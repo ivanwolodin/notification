@@ -1,14 +1,15 @@
 import asyncio
-import os
 
 import aio_pika
-
 from email_sender_async import send_email
+from settings import settings
 
 
 async def consume(queue_name):
     connection = await aio_pika.connect_robust(
-        'amqp://guest:guest@rabbit_queue/'
+        f'amqp://{settings.RABBITMQ_DEFAULT_USER}:'
+        f'{settings.RABBITMQ_DEFAULT_PASS}@'
+        f'{settings.RABBITMQ_CONTAINER_NAME}/'
     )
     channel = await connection.channel()
     queue = await channel.declare_queue(
@@ -22,7 +23,7 @@ async def consume(queue_name):
             async with message.process() as msg:
                 get_from_rabbit = msg.body.decode()
                 await send_email(
-                    sender=os.getenv('SMTP_USER'),
+                    sender=settings.SMTP_USER,
                     to=get_from_rabbit.get('email_list'),
                     subject=get_from_rabbit.get('subject'),
                     text=get_from_rabbit.get('text'),
@@ -30,7 +31,7 @@ async def consume(queue_name):
 
 
 async def main():
-    queue_name = 'email_queue'
+    queue_name = settings.RABBITMQ_QUEUE_NAME
     await consume(queue_name)
 
 

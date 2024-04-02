@@ -1,8 +1,7 @@
 from functools import lru_cache
 
-from fastapi import Depends
-
 from broker.producer import BaseProducer, RabbitMQ, get_rabbit_producer
+from fastapi import Depends
 from models.content_model import BaseContent
 
 
